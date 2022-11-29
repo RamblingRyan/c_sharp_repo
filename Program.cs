@@ -39,7 +39,7 @@ class Solution
     {
         TextWriter textWriter = new StreamWriter("./output.log", true);
 
-        
+
         string[] lines = File.ReadAllLines("input.txt");
 
         int n = Convert.ToInt32(lines[0].Trim());
@@ -53,7 +53,7 @@ class Solution
         List<int> result = Result.missingNumbers(arr, brr);
 
 
-        Console.WriteLine("n is {0}",n);
+        Console.WriteLine("n is {0}", n);
 
 
 
