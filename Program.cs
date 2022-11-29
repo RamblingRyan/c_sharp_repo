@@ -27,6 +27,47 @@ class Result
     public static List<int> missingNumbers(List<int> arr, List<int> brr)
     {
         List<int> myAnswer = new List<int>();
+
+        Hashtable ht = new Hashtable();
+
+        Console.WriteLine("arr");
+        var arrGroups = arr.GroupBy(i => i);
+        foreach (var grp in arrGroups)
+        {
+            var number = grp.Key;
+            var count = grp.Count();
+            ht.Add(number, count);
+            Console.WriteLine("number {0} has count {1}", number, count);
+        }
+
+        Console.WriteLine("brr");
+        var brrGroups = brr.GroupBy(i => i);
+        foreach (var grp in brrGroups)
+        {
+            var number = grp.Key;
+            var count = grp.Count();
+            Console.WriteLine("number {0} has count {1}", number, count);
+            var lookup = ht[number];
+            bool matched = false;
+            if (lookup is not null)
+            {
+                if (count == (int)lookup)
+                {
+                    Console.WriteLine("matched");
+                    matched = true;
+                } else {
+                    Console.WriteLine("not matched {0}", lookup);
+                }
+
+
+            }
+            if (!(matched)){
+                myAnswer.Add(number);
+            }
+        }
+
+        myAnswer.Sort();
+
         return myAnswer;
 
     }
@@ -50,13 +91,13 @@ class Solution
 
         List<int> brr = lines[3].TrimEnd().Split(' ').ToList().Select(brrTemp => Convert.ToInt32(brrTemp)).ToList();
 
-        List<int> result = Result.missingNumbers(arr, brr);
-
-
         Console.WriteLine("n is {0}", n);
 
 
+        List<int> result = Result.missingNumbers(arr, brr);
 
+        Console.WriteLine("the result is on the next line");
+        Console.WriteLine(String.Join(" ", result));
         textWriter.WriteLine(String.Join(" ", result));
 
         textWriter.Flush();
